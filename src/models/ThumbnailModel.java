@@ -9,9 +9,11 @@ public class ThumbnailModel extends Subject {
 	private ImageIcon imageIcon;
 	private Image image;
 	
-	public ThumbnailModel() {
-		
+	public ThumbnailModel(Image cImage) {
+		this.image = cImage;
 	}
+
+	//#region Getters/Setters
 
 	public ImageIcon getImageIcon() {
 		return imageIcon;
@@ -21,5 +23,14 @@ public class ThumbnailModel extends Subject {
 		this.imageIcon = imageIcon;
 	}
 	
+	public Image getImage(){
+		return this.image;
+	}
+
+	public void setImage(Image cImage) {
+        this.image = cImage;
+    }
+
+	//#endregion
 	
 }

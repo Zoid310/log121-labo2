@@ -5,9 +5,12 @@ public class Image {
 	private String path;
 	private int[] size;
 	
-	public Image() {
-		
+	public Image(String cPath, int[] cSize) {
+		this.path = cPath;
+        this.size = cSize;
 	}
+
+	//#region Getters/Setters
 
 	public String getPath() {
 		return path;
@@ -24,5 +27,5 @@ public class Image {
 	public void setSize(int[] size) {
 		this.size = size;
 	}
-
+	//#endregion
 }
