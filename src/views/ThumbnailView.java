@@ -1,11 +1,14 @@
 package views;
 
+import javax.swing.JLabel;
+
 import models.ThumbnailModel;
 import observer.*;
 
 public class ThumbnailView extends JPanel implements Observer {
 	
 	private ThumbnailModel model;
+	private JLabel imageLabel;
 	
 	public ThumbnailView(ThumbnailModel modelInstance) {
 		this.model = modelInstance;
@@ -32,7 +35,7 @@ public class ThumbnailView extends JPanel implements Observer {
         revalidate();
         repaint();
     }
-	}
+	
 	
 	public void update(Subject subject) {
 		display(); // mise a jour de laffichage

@@ -13,9 +13,9 @@ public class PerspectiveView extends JPanel implements Observer {
     private PerspectiveModel model;
     private PerspectiveController controller;
     
-    public PerspectiveView(PerspectiveModel modelInstance) {
+    public PerspectiveView(PerspectiveModel modelInstance, Image cImage) {
         this.model = modelInstance;
-        this.controller = new PerspectiveController();
+        this.controller = new PerspectiveController(cImage);
         this.model.add(this); // S'abonner aux mises a jour du modele
         
         setLayout(new BorderLayout());
