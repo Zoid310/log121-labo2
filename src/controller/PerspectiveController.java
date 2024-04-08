@@ -1,6 +1,11 @@
 package controller;
 
-public class PerspectiveController {
+import java.io.Serializable;
+
+public class PerspectiveController implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	
 	public PerspectiveController() {
 		

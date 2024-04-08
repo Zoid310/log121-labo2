@@ -1,19 +1,22 @@
 package views;
 
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+
 import models.ThumbnailModel;
 import observer.*;
 
 public class ThumbnailView extends JPanel implements Observer {
 	
+	private static final long serialVersionUID = 1L;
 	private ThumbnailModel model;
 	
 	public ThumbnailView(ThumbnailModel modelInstance) {
+		super();
 		this.model = modelInstance;
 		model.add(this);
 
-		setLayout(new BorderLayout());
-		imageLabel = new JLabel();
-		add(imageLabel, BorderLayout.CENTRE);
+
 	}
 	
 	public void loadImage() {
@@ -24,15 +27,10 @@ public class ThumbnailView extends JPanel implements Observer {
 	
 	public void display() {
 
-		if (model.getImageIcon() != null) {
-            imageLabel.setIcon(model.getImageIcon());
-        } else {
-            imageLabel.setText("Aucune image disponible");
-        }
+
         revalidate();
         repaint();
     }
-	}
 	
 	public void update(Subject subject) {
 		display(); // mise a jour de laffichage
