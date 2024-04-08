@@ -11,7 +11,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String TITRE_FENETRE = "Laboratoire 1 : LOG121 - Simulation";
-	private static final Dimension DIMENSION = new Dimension(700, 700);
+	private static final Dimension DIMENSION = new Dimension(1000, 500);
 
 	private MainPanel mainPannel;
 	private MenuWindow menuWindow;
