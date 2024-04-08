@@ -10,15 +10,16 @@ import observer.Observer;
 import observer.Subject;
 
 public class ThumbnailView extends JPanel implements Observer {
-    
-    private ThumbnailModel model;	
-    private JLabel imageLabel;
+		super();
+		this.model = modelInstance;
+		model.add(this);
 
+
+	}
 	
 
     public ThumbnailView(ThumbnailModel model) {
         this.model = model;
-        this.model.add(this);
 
         imageLabel = new JLabel();
         add(imageLabel);

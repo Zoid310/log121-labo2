@@ -9,14 +9,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PerspectiveView extends JPanel implements Observer {
-    
+
+    private static final long serialVersionUID = 1L;    
     private PerspectiveModel model;
     private PerspectiveController controller;
     
-    public PerspectiveView(PerspectiveModel modelInstance) {
+    public PerspectiveView(PerspectiveModel modelInstance, Image cImage) {
+        super();
         this.model = modelInstance;
-        this.controller = new PerspectiveController();
-        this.model.add(this); // S'abonner aux mises a jour du modèle
+        this.controller = new PerspectiveController(cImage);
+        this.model.add(this); // S'abonner aux mises a jour du modele
         
         setLayout(new BorderLayout());
     }

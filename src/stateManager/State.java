@@ -10,6 +10,7 @@ import views.*;
 public class State implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private static State activeState;
 	private ThumbnailView thumbnail;
 	private PerspectiveView perspective1;
 	private PerspectiveView perspective2;
@@ -22,11 +23,18 @@ public class State implements Serializable {
         ois.defaultReadObject();
     }
 
+	public static State getActiveState() {
+		return activeState;
+    }
+
+	public static void setActiveState(State newState) {
+        activeState = newState;
+    }
+
 	public State(ThumbnailView cThumbnail, PerspectiveView cPerspective1, PerspectiveView cPerspective2) {
 
 		this.thumbnail = cThumbnail;
 		this.perspective1 = cPerspective1;
 		this.perspective2 = cPerspective2;
-
 	}
 }

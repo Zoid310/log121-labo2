@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
 import observer.Subject;
@@ -10,8 +12,9 @@ import java.util.List;
 
 
 
-public class ThumbnailModel extends Subject {
+public class ThumbnailModel extends Subject implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private ImageIcon imageIcon;
 	private Image image;
 	private List<Observer> observers;

@@ -1,8 +1,13 @@
 package models;
 
+import java.io.Serializable;
+
 import observer.Subject;
 
-public class PerspectiveModel extends Subject {
+
+public class PerspectiveModel extends Subject implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	static final double DEFAULT_ZOOM = 1.0;
 	
 	private Image image;
