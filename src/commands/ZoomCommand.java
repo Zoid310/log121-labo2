@@ -1,10 +1,15 @@
 package commands;
 
 import views.PerspectiveView;
+import models.*;
 
 public class ZoomCommand implements Command {
 
-	private int zoomAmount;
+	private double zoomAmount;
+
+	public ZoomCommand(double zoomAmount,PerspectiveModel model){
+
+	}
 	
 	@Override
 	public void execute(PerspectiveView perspective) {

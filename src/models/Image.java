@@ -32,4 +32,3 @@ public class Image implements Serializable{
 	}
 	//#endregion
 }
-// okok

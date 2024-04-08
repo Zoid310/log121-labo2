@@ -1,7 +1,7 @@
 package views;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import models.ThumbnailModel;
 import observer.*;
@@ -10,6 +10,7 @@ public class ThumbnailView extends JPanel implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	private ThumbnailModel model;
+	private JLabel imageLabel;
 	
 	public ThumbnailView(ThumbnailModel modelInstance) {
 		super();
