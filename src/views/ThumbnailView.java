@@ -1,30 +1,32 @@
 package views;
 
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
 import models.ThumbnailModel;
-import observer.*;
+
+
+import observer.Observer;
+import observer.Subject;
 
 public class ThumbnailView extends JPanel implements Observer {
-	
-	private ThumbnailModel model;
-	
-	public ThumbnailView(ThumbnailModel modelInstance) {
-		this.model = modelInstance;
-		model.add(this);
+    
+    private ThumbnailModel model;	
+    private JLabel imageLabel;
 
-		setLayout(new BorderLayout());
-		imageLabel = new JLabel();
-		add(imageLabel, BorderLayout.CENTRE);
-	}
 	
-	public void loadImage() {
-		
-		//TODO: Calls the controller to load the thumbnail or something else
-		
-	}
-	
-	public void display() {
 
-		if (model.getImageIcon() != null) {
+    public ThumbnailView(ThumbnailModel model) {
+        this.model = model;
+        this.model.add(this);
+
+        imageLabel = new JLabel();
+        add(imageLabel);
+    }
+	
+
+    public void display() {
+        if (model.getImageIcon() != null) {
             imageLabel.setIcon(model.getImageIcon());
         } else {
             imageLabel.setText("Aucune image disponible");
@@ -32,10 +34,23 @@ public class ThumbnailView extends JPanel implements Observer {
         revalidate();
         repaint();
     }
-	}
+
+    
 	
-	public void update(Subject subject) {
-		display(); // mise a jour de laffichage
-		
-	}
+	@Override
+public void update(Subject subject) {
+    if (subject instanceof ThumbnailModel) {
+        ThumbnailModel model = (ThumbnailModel) subject;
+       
+        if (model.getImageIcon() != null) {
+            imageLabel.setIcon(model.getImageIcon());
+        } else {
+            imageLabel.setText("Aucune image disponible");
+        }
+        revalidate();
+        repaint();
+    }
+}
+
+	
 }

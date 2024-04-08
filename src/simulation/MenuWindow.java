@@ -11,6 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+
+
 public class MenuWindow extends JMenuBar{
 	private static final String STATE_MENU_TITLE = "État";
 	private static final String STATE_MENU_SAVE = "Enregistrer";
@@ -19,7 +21,24 @@ public class MenuWindow extends JMenuBar{
 	public MenuWindow() {
 		addUndoButton();
 		addStateManagerMenu();
+
+		addFileMenu();
+        addEditMenu();
+        addClipboardMenu();
+		
 	}
+
+	private void addFileMenu() {
+        JMenu fileMenu = new JMenu("Fichier");
+        JMenuItem openItem = new JMenuItem("Ouvrir");
+        openItem.addActionListener((ActionEvent e) -> {
+            // Logique pour ouvrir un fichier
+        });
+        fileMenu.add(openItem);
+        // Ajoutez d'autres items si nécessaire
+        this.add(fileMenu);
+    }
+
 
 	public void addUndoButton() {
 		JMenuItem menuUndo = new JMenuItem("Undo");
@@ -59,7 +78,21 @@ public class MenuWindow extends JMenuBar{
 
 		stateMenu.add(menuLoad);
 		stateMenu.add(menuSave);
+		
 
 		add(stateMenu);
+		
 	}
+
+
+	private void addEditMenu() {
+        JMenu editMenu = new JMenu("Édition");
+        this.add(editMenu);
+    }
+
+	private void addClipboardMenu() {
+        JMenu clipboardMenu = new JMenu("Presse-Papier");
+        this.add(clipboardMenu);
+    }
+	
 }

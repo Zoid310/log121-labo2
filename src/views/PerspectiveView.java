@@ -16,7 +16,7 @@ public class PerspectiveView extends JPanel implements Observer {
     public PerspectiveView(PerspectiveModel modelInstance) {
         this.model = modelInstance;
         this.controller = new PerspectiveController();
-        this.model.add(this); // S'abonner aux mises a jour du modele
+        this.model.add(this); // S'abonner aux mises a jour du modèle
         
         setLayout(new BorderLayout());
     }
@@ -42,7 +42,7 @@ public class PerspectiveView extends JPanel implements Observer {
             JLabel label = new JLabel(new ImageIcon(model.getImage().getPath()));
             add(label, BorderLayout.CENTER);
         } else {
-            // message si aucune image nest chargee
+
             add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
         }
         
