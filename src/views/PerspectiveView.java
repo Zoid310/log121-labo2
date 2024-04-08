@@ -45,7 +45,7 @@ public class PerspectiveView extends JPanel implements Observer {
             JLabel label = new JLabel(new ImageIcon(model.getImage().getPath()));
             add(label, BorderLayout.CENTER);
         } else {
-            // message si aucune image nest chargee
+
             add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
         }
         

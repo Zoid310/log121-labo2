@@ -105,7 +105,15 @@ public class MenuWindow extends JMenuBar {
 
 		stateMenu.add(menuLoadStateFile);
 		stateMenu.add(menuSave);
+		
 
 		add(stateMenu);
+		
 	}
+
+	private void addClipboardMenu() {
+        JMenu clipboardMenu = new JMenu("Presse-Papier");
+        this.add(clipboardMenu);
+    }
+	
 }
