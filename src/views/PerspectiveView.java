@@ -65,24 +65,33 @@ public class PerspectiveView extends JPanel implements Observer {
     
 
     public void display() {
+        this.removeAll();
         
-        this.removeAll(); 
-
         if (model.getImagePath() != null) {
-            // afficher limage
+      
             ImageIcon imageIcon = new ImageIcon(model.getImagePath());
             java.awt.Image image = imageIcon.getImage();
-            ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500/3, ABORT));
-            imageLabel = new JLabel(newImageIcon);
+            
+            
+            int newWidth = (int) (image.getWidth(this) * model.getZoom());
+            int newHeight = (int) (image.getHeight(this) * model.getZoom());
+            
+       
+            java.awt.Image resizedImage = image.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
+            ImageIcon resizedIcon = new ImageIcon(resizedImage);
+            
+         
+            imageLabel.setIcon(resizedIcon);
+            
             add(imageLabel, BorderLayout.CENTER);
         } else {
-
             add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
         }
         
         revalidate();
         repaint();
     }
+    
 
     public PerspectiveModel getModel() {
         return this.model;
