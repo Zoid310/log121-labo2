@@ -10,42 +10,32 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-
-
 public class ThumbnailModel extends Subject implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private ImageIcon imageIcon;
-	private Image image;
+	private String imagePath;
 	private List<Observer> observers;
-	
-	public ThumbnailModel(Image cImage) {
-		this.image = cImage;
-		observers = new ArrayList<>();
+
+	public ThumbnailModel(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	// @Override
-    // public void addObserver(Observer o) {
-    //     observers.add(o);
-    // }
+	// public void addObserver(Observer o) {
+	// observers.add(o);
+	// }
 
-    // @Override
-    // public void removeObserver(Observer o) {
-    //     observers.remove(o);
-    // }
+	// @Override
+	// public void removeObserver(Observer o) {
+	// observers.remove(o);
+	// }
 
-    public ThumbnailModel(ImageIcon imageIcon2) {
-	
+	public ThumbnailModel(ImageIcon imageIcon2) {
+		this.imageIcon = imageIcon2;
 	}
 
-	@Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(this);
-        }
-    }
-
-	//#region Getters/Setters
+	// #region Getters/Setters
 
 	public ImageIcon getImageIcon() {
 		return imageIcon;
@@ -54,20 +44,15 @@ public class ThumbnailModel extends Subject implements Serializable {
 	public void setImageIcon(ImageIcon imageIcon) {
 		this.imageIcon = imageIcon;
 	}
-	
-	public Image getImage(){
-		return this.image;
+
+	public String getImagePath() {
+		return this.imagePath;
 	}
 
-	public void setImage(Image cImage) {
-        this.image = cImage;
-	
-        notifyObservers(); 
-    }
-    }
+	public void setImagePath(String newImagePath) {
+		this.imagePath = newImagePath;
+		this.notifyObservers();
+	}
+}
 
-
-
-	//#endregion
-	
-
+// #endregion

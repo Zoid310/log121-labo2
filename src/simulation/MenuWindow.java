@@ -46,7 +46,7 @@ public class MenuWindow extends JMenuBar {
 	}
 
 	public void addFileMenu() {
-		JMenu stateMenu = new JMenu(FILE_MENU_TITLE);
+		JMenu fileMenu = new JMenu(FILE_MENU_TITLE);
 		JMenuItem menuSave = new JMenuItem(FILE_MENU_SAVE);
 		JMenuItem menuLoadStateFile = new JMenuItem(FILE_MENU_LOAD);
 		JMenuItem menuLoadImage = new JMenuItem(FILE_MENU_LOAD_IMAGE);
@@ -98,16 +98,30 @@ public class MenuWindow extends JMenuBar {
             fileChooser.setDialogTitle("Sélectionnez une image");
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(".png, .jpg", "png,jpg");
 			fileChooser.addChoosableFileFilter(filter);
+
+			int returnValue = fileChooser.showOpenDialog(null);
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				System.out.println(selectedFile.getAbsolutePath());
+				State.setActiveState(new State(selectedFile.getAbsolutePath()));
+			}
+			else{
+				System.out.println("No file selected");
+			}
+
 			File imageFile = fileChooser.getSelectedFile();
-			Image image = new Image(imageFile.getAbsolutePath(), new int[]{0,0});
-			State.setActiveState(new State(image));
+			State activeState = State.getActiveState();
+			activeState.getThumbnail().getModel().setImagePath(imageFile.getAbsolutePath());
+			activeState.getPerspective1().getModel().setImagePath(imageFile.getAbsolutePath());
+			activeState.getPerspective2().getModel().setImagePath(imageFile.getAbsolutePath());
 		});
 
-		stateMenu.add(menuLoadStateFile);
-		stateMenu.add(menuSave);
+		fileMenu.add(menuLoadStateFile);
+		fileMenu.add(menuSave);
+		fileMenu.add(menuLoadImage);
 		
-
-		add(stateMenu);
+		add(fileMenu);
 		
 	}
 
