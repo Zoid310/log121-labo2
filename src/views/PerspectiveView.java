@@ -36,7 +36,7 @@ public class PerspectiveView extends JPanel implements Observer {
         this.model.add(this); // S'abonner aux mises a jour du modele
         ImageIcon imageIcon = new ImageIcon(model.getImagePath());
         java.awt.Image image = imageIcon.getImage();
-        ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500 / 3, ABORT));
+        ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500 / 3, Image.SCALE_FAST));
         imageLabel = new JLabel(newImageIcon);
         imageLabel.setLocation(model.getPosition());
         imageLabel.setSize(new Dimension(1000 / 3, 500 / 3));
@@ -109,7 +109,7 @@ public class PerspectiveView extends JPanel implements Observer {
             int x = Math.max(0, Math.min(model.getPosition().x, fullImage.getWidth() - visibleWidth));
             int y = Math.max(0, Math.min(model.getPosition().y, fullImage.getHeight() - visibleHeight));
             BufferedImage visibleImage = fullImage.getSubimage(x, y, visibleWidth, visibleHeight);
-            Image scaledImage = visibleImage.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
+            Image scaledImage = visibleImage.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_FAST);
             imageLabel.setIcon(new ImageIcon(scaledImage));
     
             // Center imageLabel inside PerspectiveView

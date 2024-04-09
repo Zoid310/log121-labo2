@@ -7,10 +7,10 @@ import commands.*;
 public class CommandManager {
 	
 	private static CommandManager instance = new CommandManager();
-	private Stack<Command> commandHistory = new Stack<>();
+	private Stack<Command> commandHistory;
 	
 	private CommandManager() {
-		
+		this.commandHistory = new Stack<Command>();
 	}
 	
 	public static CommandManager getInstance() {
@@ -32,7 +32,7 @@ public class CommandManager {
 	public void undoCommand() {
 		if (!commandHistory.isEmpty()) {
             Command c = commandHistory.pop();
-            c.undo();
+			c.undo();
         }
 	}
 }
