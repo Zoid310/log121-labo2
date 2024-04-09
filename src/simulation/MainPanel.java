@@ -43,7 +43,6 @@ public class MainPanel extends JPanel implements EventListener {
         add(State.getActiveState().getThumbnail());
         add(State.getActiveState().getPerspective1());
         add(State.getActiveState().getPerspective2());
-        State.getActiveState().getThumbnail().loadImage();
     }
 
     @Override

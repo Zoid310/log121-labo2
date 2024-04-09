@@ -54,6 +54,8 @@ public class PerspectiveController implements Serializable {
 		
 	}
 
+    
+
 	//pas sure
 	/*public void undo() {
         commandManager.undoCommand();
