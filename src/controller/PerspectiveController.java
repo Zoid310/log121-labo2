@@ -15,8 +15,9 @@ public class PerspectiveController implements Serializable {
     private PerspectiveView view;
     private CommandManager commandManager;
 	
-	public PerspectiveController(Image cImage) {
-        this.model = new PerspectiveModel(cImage);
+	public PerspectiveController(PerspectiveView cView) {
+        this.view = cView;
+        this.model = cView.getModel();
         this.commandManager = CommandManager.getInstance();
     }
 
