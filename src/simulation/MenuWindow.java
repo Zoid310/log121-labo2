@@ -1,13 +1,11 @@
 package simulation;
 
-import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileWriter;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,8 +18,7 @@ import models.PerspectiveModel;
 import models.ThumbnailModel;
 import singleton.CommandManager;
 import stateManager.*;
-import views.PerspectiveView;
-import views.ThumbnailView;
+
 
 public class MenuWindow extends JMenuBar {
 	private static final String FILE_MENU_TITLE = "Fichier";
