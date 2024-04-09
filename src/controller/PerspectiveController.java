@@ -29,13 +29,16 @@ public class PerspectiveController implements Serializable {
         double zoomFactor = 1.1; 
         Command zoomIn = new ZoomCommand(zoomFactor, model);
         commandManager.executeCommand(zoomIn);
+        view.display(); 
     }
-
+    
     public void handleZoomOut() {
         double zoomFactor = 0.9; 
         Command zoomOut = new ZoomCommand(zoomFactor, model);
         commandManager.executeCommand(zoomOut);
+        view.display(); 
     }
+    
 
     public void handleSave() {
         Command saveCommand = new SavePerspectiveCommand(model);
