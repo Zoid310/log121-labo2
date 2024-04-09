@@ -4,6 +4,7 @@ import controller.PerspectiveController;
 import models.PerspectiveModel;
 import observer.Observer;
 import observer.Subject;
+import models.Image;
 
 import javax.swing.*;
 import java.awt.*;

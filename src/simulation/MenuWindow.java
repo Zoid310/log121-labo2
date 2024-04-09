@@ -23,42 +23,35 @@ import views.PerspectiveView;
 import views.ThumbnailView;
 
 public class MenuWindow extends JMenuBar {
-	private static final String STATE_MENU_TITLE = "État";
-	private static final String STATE_MENU_SAVE = "Enregistrer";
-	private static final String STATE_MENU_LOAD = "Charger";
+	private static final String FILE_MENU_TITLE = "Fichier";
+	private static final String FILE_MENU_SAVE = "Sauvegarder perspective";
+	private static final String FILE_MENU_LOAD = "Charger perspective";
+	private static final String FILE_MENU_LOAD_IMAGE = "Charger image";
+	private static final String EDIT_MENU = "Édition";
+	private static final String EDIT_UNDO = "Défaire";
 
 	public MenuWindow() {
-		addUndoButton();
-		addStateManagerMenu();
+		addFileMenu();
+		addEditMenu();
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 	}
 
-	private void addFileMenu() {
-        JMenu fileMenu = new JMenu("Fichier");
-        JMenuItem openItem = new JMenuItem("Ouvrir");
-        openItem.addActionListener((ActionEvent e) -> {
-            // Logique pour ouvrir un fichier
-        });
-        fileMenu.add(openItem);
-        // Ajoutez d'autres items si nécessaire
-        this.add(fileMenu);
-    }
-
-
-	public void addUndoButton() {
-		JButton undoBtn = new JButton("Action inverse");
-		undoBtn.addActionListener((ActionEvent e) -> {
+	public void addEditMenu() {
+		JMenu editMenu = new JMenu(EDIT_MENU);
+		JMenuItem editUndo = new JMenuItem(EDIT_UNDO);
+		editUndo.addActionListener((ActionEvent e) -> {
 			// TODO: Undo the last action.
 		});
-		add(undoBtn);
+		add(editMenu);
 	}
 
-	public void addStateManagerMenu() {
-		JMenu stateMenu = new JMenu(STATE_MENU_TITLE);
-		JMenuItem menuSave = new JMenuItem(STATE_MENU_SAVE);
-		JMenuItem menuLoad = new JMenuItem(STATE_MENU_LOAD);
+	public void addFileMenu() {
+		JMenu stateMenu = new JMenu(FILE_MENU_TITLE);
+		JMenuItem menuSave = new JMenuItem(FILE_MENU_SAVE);
+		JMenuItem menuLoadStateFile = new JMenuItem(FILE_MENU_LOAD);
+		JMenuItem menuLoadImage = new JMenuItem(FILE_MENU_LOAD_IMAGE);
 
-		menuLoad.addActionListener((ActionEvent e) -> {
+		menuLoadStateFile.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 			fileChooser.setDialogTitle("Sélectionnez un fichier d'état'");
 			fileChooser.setAcceptAllFileFilterUsed(false);
@@ -100,19 +93,23 @@ public class MenuWindow extends JMenuBar {
 			}
 		});
 
-		stateMenu.add(menuLoad);
+		menuLoadImage.addActionListener((ActionEvent e) -> {
+			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            fileChooser.setDialogTitle("Sélectionnez une image");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(".png, .jpg", "png,jpg");
+			fileChooser.addChoosableFileFilter(filter);
+			File imageFile = fileChooser.getSelectedFile();
+			Image image = new Image(imageFile.getAbsolutePath(), new int[]{0,0});
+			State.setActiveState(new State(image));
+		});
+
+		stateMenu.add(menuLoadStateFile);
 		stateMenu.add(menuSave);
 		
 
 		add(stateMenu);
 		
 	}
-
-
-	private void addEditMenu() {
-        JMenu editMenu = new JMenu("Édition");
-        this.add(editMenu);
-    }
 
 	private void addClipboardMenu() {
         JMenu clipboardMenu = new JMenu("Presse-Papier");

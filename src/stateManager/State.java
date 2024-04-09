@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import models.*;
 import views.*;
 
 public class State implements Serializable {
@@ -31,10 +32,10 @@ public class State implements Serializable {
         activeState = newState;
     }
 
-	public State(ThumbnailView cThumbnail, PerspectiveView cPerspective1, PerspectiveView cPerspective2) {
+	public State(Image image) {
 
-		this.thumbnail = cThumbnail;
-		this.perspective1 = cPerspective1;
-		this.perspective2 = cPerspective2;
+		this.thumbnail = new ThumbnailView(new ThumbnailModel(image));
+		this.perspective1 = new PerspectiveView(new PerspectiveModel(image), image);
+		this.perspective2 = new PerspectiveView(new PerspectiveModel(image), image);
 	}
 }
