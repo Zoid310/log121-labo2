@@ -57,6 +57,10 @@ public class ThumbnailView extends JPanel implements Observer {
         repaint();
     }
 
+    public void display(){
+        
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

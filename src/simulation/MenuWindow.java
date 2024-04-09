@@ -67,6 +67,7 @@ public class MenuWindow extends JMenuBar {
 
 				try {
                     StateManager.loadStateFromFile(selectedFile.getAbsolutePath());
+					State activeState = State.getActiveState();					
                 } catch (IOException | ClassNotFoundException ioe) {
                     ioe.printStackTrace();
                 }
