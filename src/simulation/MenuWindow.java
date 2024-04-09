@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileSystemView;
 import models.Image;
 import models.PerspectiveModel;
 import models.ThumbnailModel;
+import singleton.CommandManager;
 import stateManager.*;
 import views.PerspectiveView;
 import views.ThumbnailView;
@@ -40,8 +41,9 @@ public class MenuWindow extends JMenuBar {
 		JMenu editMenu = new JMenu(EDIT_MENU);
 		JMenuItem editUndo = new JMenuItem(EDIT_UNDO);
 		editUndo.addActionListener((ActionEvent e) -> {
-			// TODO: Undo the last action.
+			CommandManager.getInstance().undoCommand();
 		});
+		editMenu.add(editUndo);
 		add(editMenu);
 	}
 

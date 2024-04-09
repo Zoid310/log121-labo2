@@ -3,6 +3,7 @@ import models.*;
 import views.*;
 import singleton.*;
 import commands.*;
+import javafx.scene.effect.Light.Point;
 
 import java.io.Serializable;
 
@@ -33,21 +34,22 @@ public class PerspectiveController implements Serializable {
         double zoomFactor = 0.9; 
         Command zoomOut = new ZoomCommand(zoomFactor, view);
         commandManager.executeCommand(zoomOut);
-<<<<<<< HEAD
-    }
-
-    public void handleSave(String savePath) {
-        Command saveCommand = new SavePerspectiveCommand(model, savePath);
-        commandManager.executeCommand(saveCommand);
-=======
         view.display(); 
->>>>>>> 6215db7f28c3e485874303f6510692f93379acf5
     }
 
-    public void handleTranslate(int dx, int dy) {
+     public void handleTranslate(int dx, int dy) {
         Command move = new MoveCommand(dx, dy, view);
         commandManager.executeCommand(move);
+        view.display();
     }
+
+   /* public void handleTranslate(int dx, int dy) {
+        java.awt.Point currentPos = view.getModel().getPosition();
+        // Apply the delta to the current position
+        java.awt.Point newPos = new java.awt.Point(currentPos.x + dx, currentPos.y + dy);
+        view.getModel().setPosition(newPos);
+        view.display(); // Ensure the view is updated after translation
+    }*/
 
 	
 	public void updatePerspective() {

@@ -14,8 +14,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.Point;
+
+
 
 import java.io.File;
+import java.io.IOException;
 
 public class PerspectiveView extends JPanel implements Observer {
 
@@ -25,11 +30,10 @@ public class PerspectiveView extends JPanel implements Observer {
     private JLabel imageLabel;
 
     public PerspectiveView(PerspectiveModel modelInstance) {
-        super();
+        super(new GridBagLayout()); //ajout
         this.model = modelInstance;
         this.controller = new PerspectiveController(this);
         this.model.add(this); // S'abonner aux mises a jour du modele
-        setLayout(null);
         ImageIcon imageIcon = new ImageIcon(model.getImagePath());
         java.awt.Image image = imageIcon.getImage();
         ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500 / 3, ABORT));
@@ -54,7 +58,7 @@ public class PerspectiveView extends JPanel implements Observer {
             }
         });
 
-        addMouseMotionListener( new MouseMotionListener() {
+        /*addMouseMotionListener( new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 controller.handleTranslate(e.getX() - (imageLabel.getWidth() / 2), e.getY() - (imageLabel.getHeight() / 2));
@@ -65,9 +69,30 @@ public class PerspectiveView extends JPanel implements Observer {
     
             }
     
+        });*/
+
+
+        addMouseMotionListener(new MouseAdapter() {
+            private Point lastDragPoint = null;
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+                lastDragPoint = e.getPoint();
+            }
+        
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (lastDragPoint == null) {
+                    lastDragPoint = e.getPoint();
+                    return;
+                }
+                int deltaX = e.getX() - lastDragPoint.x;
+                int deltaY = e.getY() - lastDragPoint.y;
+                lastDragPoint = e.getPoint();
+                controller.handleTranslate(deltaX, deltaY);
+            }
         });
 
-        
     }
 
     @Override
@@ -77,23 +102,27 @@ public class PerspectiveView extends JPanel implements Observer {
     }
 
     public void display() {
-        this.removeAll();
-
-        if (model.getImagePath() != null) {
-            ImageIcon imageIcon = new ImageIcon(model.getImagePath());
-            Image originalImage = imageIcon.getImage();
-
-            int newWidth = (int) (originalImage.getWidth(null) * model.getZoom());
-            int newHeight = (int) (originalImage.getHeight(null) * model.getZoom());
-
-            Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-            imageLabel.setIcon(new ImageIcon(resizedImage));
-            imageLabel.setLocation(model.getPosition());
-            add(imageLabel, BorderLayout.CENTER);
-        } else {
-            add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
+        try {
+            BufferedImage fullImage = ImageIO.read(new File(model.getImagePath()));
+            int visibleWidth = (int) (this.getWidth() / model.getZoom());
+            int visibleHeight = (int) (this.getHeight() / model.getZoom());
+            int x = Math.max(0, Math.min(model.getPosition().x, fullImage.getWidth() - visibleWidth));
+            int y = Math.max(0, Math.min(model.getPosition().y, fullImage.getHeight() - visibleHeight));
+            BufferedImage visibleImage = fullImage.getSubimage(x, y, visibleWidth, visibleHeight);
+            Image scaledImage = visibleImage.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
+            imageLabel.setIcon(new ImageIcon(scaledImage));
+    
+            // Center imageLabel inside PerspectiveView
+            this.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.anchor = GridBagConstraints.CENTER;
+            imageLabel.setSize(new Dimension(visibleWidth, visibleHeight));
+            this.add(imageLabel, gbc);
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+            imageLabel.setIcon(null);
         }
-
         revalidate();
         repaint();
     }

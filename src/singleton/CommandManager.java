@@ -7,7 +7,7 @@ import commands.*;
 public class CommandManager {
 	
 	private static CommandManager instance = new CommandManager();
-	private Stack<Command> commandHistory;
+	private Stack<Command> commandHistory = new Stack<>();
 	
 	private CommandManager() {
 		
@@ -21,6 +21,7 @@ public class CommandManager {
 	}
 	
 	public void executeCommand(Command c) {
+		commandHistory.push(c);
 		c.execute();
 	}
 	
@@ -29,6 +30,9 @@ public class CommandManager {
 	}
 	
 	public void undoCommand() {
-		
+		if (!commandHistory.isEmpty()) {
+            Command c = commandHistory.pop();
+            c.undo();
+        }
 	}
 }

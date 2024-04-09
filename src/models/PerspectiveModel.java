@@ -10,6 +10,7 @@ public class PerspectiveModel extends Subject implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	static final double DEFAULT_ZOOM = 1.0;
+	public static final double MIN_ZOOM = 0.1;
 	
 	private String imagePath;
 	private double zoom;
@@ -46,20 +47,10 @@ public class PerspectiveModel extends Subject implements Serializable{
 	}
 
 	public void setZoom(double zoom) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-		this.zoom = zoom;
-		this.notifyObservers();
-	}
-=======
-=======
-
 		System.out.println("Zoom actuel : " + this.zoom + ", Nouveau zoom : " + zoom);
->>>>>>> 6215db7f28c3e485874303f6510692f93379acf5
         this.zoom = zoom;
         notifyObservers();
     }
->>>>>>> 820bcfa4e8fec9c3b0aa119eda3dbd32c0b400ca
 	
 	//#endregion
 	

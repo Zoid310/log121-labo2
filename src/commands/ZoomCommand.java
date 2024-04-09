@@ -1,40 +1,30 @@
 package commands;
 
+import models.PerspectiveModel;
 import views.PerspectiveView;
 
 public class ZoomCommand implements Command {
 
-<<<<<<< HEAD
-	private double zoomAmount;
-	private PerspectiveModel model;
-
-	public ZoomCommand(double zoomAmount,PerspectiveModel model){
-		this.zoomAmount = zoomAmount;
-        this.model = model;
-	}
-	
-	@Override
-	public void execute(PerspectiveModel perspective) {
-		model.setZoom(model.getZoom()*zoomAmount);
-		model.notifyObservers();
-	}
-	
-	public void changeZoomAmount(int newAmount,PerspectiveModel perspective) {
-		this.zoomAmount = newAmount;
-=======
     private double zoomAmount;
     private PerspectiveView view;
+	private double previousZoom;
 
     public ZoomCommand(double zoomAmount, PerspectiveView pv) {
         this.zoomAmount = zoomAmount;
         this.view = pv;
+		this.previousZoom = pv.getModel().getZoom();
     }
 
-	@Override
-	public void execute() {
-		double currentZoom = this.view.getModel().getZoom();
-		double newZoom = currentZoom * zoomAmount; 
-		view.getModel().setZoom(newZoom); 
->>>>>>> 6215db7f28c3e485874303f6510692f93379acf5
+    public void execute() {
+      double currentZoom = view.getModel().getZoom();
+      double newZoom = currentZoom * zoomAmount; 
+      if (newZoom < PerspectiveModel.MIN_ZOOM) {
+          newZoom = PerspectiveModel.MIN_ZOOM; // Enforce a minimum zoom level
+      }
+      view.getModel().setZoom(newZoom);
+    }
+
+	public void undo(){
+		view.getModel().setZoom(previousZoom);
 	}
 }
