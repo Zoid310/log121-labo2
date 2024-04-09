@@ -15,10 +15,11 @@ public class ZoomCommand implements Command {
 	
 	@Override
 	public void execute(PerspectiveModel perspective) {
-		
+		model.setZoom(model.getZoom()*zoomAmount);
+		model.notifyObservers();
 	}
 	
 	public void changeZoomAmount(int newAmount,PerspectiveModel perspective) {
-		
+		this.zoomAmount = newAmount;
 	}
 }

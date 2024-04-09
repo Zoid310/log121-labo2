@@ -35,8 +35,8 @@ public class PerspectiveController implements Serializable {
         commandManager.executeCommand(zoomOut);
     }
 
-    public void handleSave() {
-        Command saveCommand = new SavePerspectiveCommand(model);
+    public void handleSave(String savePath) {
+        Command saveCommand = new SavePerspectiveCommand(model, savePath);
         commandManager.executeCommand(saveCommand);
     }
 
