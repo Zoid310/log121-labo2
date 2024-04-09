@@ -23,19 +23,20 @@ public class PerspectiveView extends JPanel implements Observer {
     private PerspectiveModel model;
     private PerspectiveController controller;
     private JLabel imageLabel;
-    private Point imageLabelPosition;
 
     public PerspectiveView(PerspectiveModel modelInstance) {
         super();
         this.model = modelInstance;
         this.controller = new PerspectiveController(this);
         this.model.add(this); // S'abonner aux mises a jour du modele
+        setLayout(null);
         ImageIcon imageIcon = new ImageIcon(model.getImagePath());
         java.awt.Image image = imageIcon.getImage();
         ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500 / 3, ABORT));
-        setLocation(model.getPosition());
         imageLabel = new JLabel(newImageIcon);
-        setLayout(new BorderLayout());
+        imageLabel.setLocation(model.getPosition());
+        imageLabel.setSize(new Dimension(1000 / 3, 500 / 3));
+
         add(imageLabel);
 
         addMouseWheelListener(new MouseWheelListener() {
@@ -56,7 +57,7 @@ public class PerspectiveView extends JPanel implements Observer {
         addMouseMotionListener( new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                controller.handleTranslate(e.getX(), e.getY());
+                controller.handleTranslate(e.getX() - (imageLabel.getWidth() / 2), e.getY() - (imageLabel.getHeight() / 2));
             }
     
             @Override
