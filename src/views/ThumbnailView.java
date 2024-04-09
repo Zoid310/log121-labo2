@@ -1,5 +1,8 @@
 package views;
 
+import java.io.Serializable;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -10,14 +13,10 @@ import observer.Observer;
 import observer.Subject;
 
 public class ThumbnailView extends JPanel implements Observer {
-		super();
-		this.model = modelInstance;
-		model.add(this);
-
-
-	}
+		
+    private ThumbnailModel model;	
+    private JLabel imageLabel;
 	
-
     public ThumbnailView(ThumbnailModel model) {
         this.model = model;
 
