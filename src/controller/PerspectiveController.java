@@ -10,14 +10,11 @@ public class PerspectiveController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-
-	private PerspectiveModel model;
     private PerspectiveView view;
     private CommandManager commandManager;
 	
 	public PerspectiveController(PerspectiveView cView) {
         this.view = cView;
-        this.model = cView.getModel();
         this.commandManager = CommandManager.getInstance();
     }
 
@@ -27,33 +24,23 @@ public class PerspectiveController implements Serializable {
 
     public void handleZoomIn() {
         double zoomFactor = 1.1; 
-        Command zoomIn = new ZoomCommand(zoomFactor, model);
+        Command zoomIn = new ZoomCommand(zoomFactor, view);
         commandManager.executeCommand(zoomIn);
         view.display(); 
     }
     
     public void handleZoomOut() {
         double zoomFactor = 0.9; 
-        Command zoomOut = new ZoomCommand(zoomFactor, model);
+        Command zoomOut = new ZoomCommand(zoomFactor, view);
         commandManager.executeCommand(zoomOut);
         view.display(); 
     }
-    
-
-    public void handleSave() {
-        Command saveCommand = new SavePerspectiveCommand(model);
-        commandManager.executeCommand(saveCommand);
-    }
 
     public void handleTranslate(int dx, int dy) {
-        Command move = new MoveCommand(dx, dy, model);
+        Command move = new MoveCommand(dx, dy, view);
         commandManager.executeCommand(move);
     }
 
-    // Controller provides a way to get its model for the view to observe
-    public PerspectiveModel getModel() {
-        return model;
-    }
 	
 	public void updatePerspective() {
 

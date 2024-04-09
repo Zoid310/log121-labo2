@@ -10,7 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.*;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 
 import java.io.File;
@@ -21,6 +23,7 @@ public class PerspectiveView extends JPanel implements Observer {
     private PerspectiveModel model;
     private PerspectiveController controller;
     private JLabel imageLabel;
+    private Point imageLabelPosition;
 
     public PerspectiveView(PerspectiveModel modelInstance) {
         super();
@@ -30,9 +33,10 @@ public class PerspectiveView extends JPanel implements Observer {
         ImageIcon imageIcon = new ImageIcon(model.getImagePath());
         java.awt.Image image = imageIcon.getImage();
         ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500 / 3, ABORT));
+        setLocation(model.getPosition());
         imageLabel = new JLabel(newImageIcon);
         setLayout(new BorderLayout());
-        add(imageLabel, BorderLayout.CENTER);
+        add(imageLabel);
 
         addMouseWheelListener(new MouseWheelListener() {
             @Override
@@ -48,6 +52,20 @@ public class PerspectiveView extends JPanel implements Observer {
                 }
             }
         });
+
+        addMouseMotionListener( new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                controller.handleTranslate(e.getX(), e.getY());
+            }
+    
+            @Override
+            public void mouseMoved(MouseEvent e) {
+    
+            }
+    
+        });
+
         
     }
 
@@ -69,7 +87,7 @@ public class PerspectiveView extends JPanel implements Observer {
 
             Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
             imageLabel.setIcon(new ImageIcon(resizedImage));
-
+            imageLabel.setLocation(model.getPosition());
             add(imageLabel, BorderLayout.CENTER);
         } else {
             add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);

@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 import observer.Subject;
@@ -12,12 +13,12 @@ public class PerspectiveModel extends Subject implements Serializable{
 	
 	private String imagePath;
 	private double zoom;
-	private int[] position;
+	private Point position;
 	
 	public PerspectiveModel(String cImagePath) {
 		this.imagePath = cImagePath;
 		this.zoom = DEFAULT_ZOOM;
-		this.position = new int[]{0,0}; // Top left corner for now...
+		this.position = new Point(); // Top left corner for now...
 	}
 
 	//#region Getters/Setters
@@ -31,11 +32,11 @@ public class PerspectiveModel extends Subject implements Serializable{
 		this.notifyObservers();
     }
 
-	public int[] getPosition() {
+	public Point getPosition() {
 		return position;
 	}
 
-	public void setPosition(int[] position) {
+	public void setPosition(Point position) {
 		this.position = position;
 		this.notifyObservers();
 	}

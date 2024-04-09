@@ -1,22 +1,21 @@
 package commands;
 
-import models.PerspectiveModel;
 import views.PerspectiveView;
 
 public class ZoomCommand implements Command {
 
     private double zoomAmount;
-    private PerspectiveModel model;
+    private PerspectiveView view;
 
-    public ZoomCommand(double zoomAmount, PerspectiveModel model) {
+    public ZoomCommand(double zoomAmount, PerspectiveView pv) {
         this.zoomAmount = zoomAmount;
-        this.model = model;
+        this.view = pv;
     }
 
 	@Override
-	public void execute(PerspectiveView perspective) {
-		double currentZoom = model.getZoom();
+	public void execute() {
+		double currentZoom = this.view.getModel().getZoom();
 		double newZoom = currentZoom * zoomAmount; 
-		model.setZoom(newZoom); 
+		view.getModel().setZoom(newZoom); 
 	}
 }
