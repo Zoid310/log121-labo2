@@ -8,7 +8,12 @@ import observer.Subject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.*;
+
+
+import java.awt.event.MouseWheelEvent;
+
 
 import java.io.File;
 
@@ -31,6 +36,19 @@ public class PerspectiveView extends JPanel implements Observer {
         imageLabel = new JLabel(newImageIcon);
         setLayout(new BorderLayout());
         add(imageLabel, BorderLayout.CENTER);
+
+
+        addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                int notches = e.getWheelRotation();
+                if (notches < 0) {
+                    controller.handleZoomIn(); // Zoom avant
+                } else {
+                    controller.handleZoomOut(); // Zoom arrière
+                }
+            }
+        });
     }
     
     public void loadImage() {
