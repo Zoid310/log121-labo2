@@ -51,8 +51,9 @@ public class ThumbnailModel extends Subject implements Serializable {
 
 	public void setImagePath(String newImagePath) {
 		this.imagePath = newImagePath;
-		this.notifyObservers();
+		notifyObservers(); 
 	}
+	
 }
 
 // #endregion
