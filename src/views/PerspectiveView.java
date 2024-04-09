@@ -10,21 +10,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.*;
-
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
-
 
 import java.io.File;
 
 public class PerspectiveView extends JPanel implements Observer {
 
-    private static final long serialVersionUID = 1L;    
+    private static final long serialVersionUID = 1L;
     private PerspectiveModel model;
     private PerspectiveController controller;
     private JLabel imageLabel;
+    private Point imageLabelPosition;
 
-    
     public PerspectiveView(PerspectiveModel modelInstance) {
         super();
         this.model = modelInstance;
@@ -32,11 +32,11 @@ public class PerspectiveView extends JPanel implements Observer {
         this.model.add(this); // S'abonner aux mises a jour du modele
         ImageIcon imageIcon = new ImageIcon(model.getImagePath());
         java.awt.Image image = imageIcon.getImage();
-        ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500/3, ABORT));
+        ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500 / 3, ABORT));
+        setLocation(model.getPosition());
         imageLabel = new JLabel(newImageIcon);
         setLayout(new BorderLayout());
-        add(imageLabel, BorderLayout.CENTER);
-
+        add(imageLabel);
 
         addMouseWheelListener(new MouseWheelListener() {
             @Override
@@ -52,49 +52,50 @@ public class PerspectiveView extends JPanel implements Observer {
                 }
             }
         });
-        
-    }
-    
-    public void loadImage() {
 
-		
+        addMouseMotionListener( new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                controller.handleTranslate(e.getX(), e.getY());
+            }
+    
+            @Override
+            public void mouseMoved(MouseEvent e) {
+    
+            }
+    
+        });
+
         
     }
-    
+
     @Override
     public void update(Subject subject) {
-        
-        if (subject == model) {
-            display(); 
-        }
+        // appelle quand modele notifie un changement
+        display();
     }
-    
-    
 
     public void display() {
-        this.removeAll(); 
+        this.removeAll();
 
-    if (model.getImagePath() != null) {
-        ImageIcon imageIcon = new ImageIcon(model.getImagePath());
-        Image originalImage = imageIcon.getImage();
+        if (model.getImagePath() != null) {
+            ImageIcon imageIcon = new ImageIcon(model.getImagePath());
+            Image originalImage = imageIcon.getImage();
 
- 
-        int newWidth = (int) (originalImage.getWidth(null) * model.getZoom());
-        int newHeight = (int) (originalImage.getHeight(null) * model.getZoom());
+            int newWidth = (int) (originalImage.getWidth(null) * model.getZoom());
+            int newHeight = (int) (originalImage.getHeight(null) * model.getZoom());
 
-       
-        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-        imageLabel.setIcon(new ImageIcon(resizedImage));
+            Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            imageLabel.setIcon(new ImageIcon(resizedImage));
+            imageLabel.setLocation(model.getPosition());
+            add(imageLabel, BorderLayout.CENTER);
+        } else {
+            add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
+        }
 
-        add(imageLabel, BorderLayout.CENTER);
-    } else {
-        add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
-
-    revalidate();
-    repaint();
-    }
-    
 
     public PerspectiveModel getModel() {
         return this.model;
@@ -108,17 +109,19 @@ public class PerspectiveView extends JPanel implements Observer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
-        int borderThickness = 3; 
-        g.fillRect(0, 0, getWidth(), borderThickness); 
-        g.fillRect(0, getHeight() - borderThickness, getWidth(), borderThickness); 
-        g.fillRect(0, 0, borderThickness, getHeight()); 
+        int borderThickness = 3;
+        g.fillRect(0, 0, getWidth(), borderThickness);
+        g.fillRect(0, getHeight() - borderThickness, getWidth(), borderThickness);
+        g.fillRect(0, 0, borderThickness, getHeight());
         g.fillRect(getWidth() - borderThickness, 0, borderThickness, getHeight());
         // BufferedImage image = null;
         // try {
-        //     image = ImageIO.read(new File(model.getImagePath()));
+        // image = ImageIO.read(new File(model.getImagePath()));
         // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
+        // System.out.println(e.getMessage());
         // }
-        // g.drawImage(image, model.getPosition()[0], model.getPosition()[1], this.getWidth() - borderThickness, (this.getHeight() / 3) - borderThickness, null);
+        // g.drawImage(image, model.getPosition()[0], model.getPosition()[1],
+        // this.getWidth() - borderThickness, (this.getHeight() / 3) - borderThickness,
+        // null);
     }
 }
