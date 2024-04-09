@@ -10,6 +10,8 @@ public class MoveCommand implements Command{
 
 	public MoveCommand(int deltaX, int deltaY, PerspectiveModel model){
 
+		
+
 	}
 	
 	@Override

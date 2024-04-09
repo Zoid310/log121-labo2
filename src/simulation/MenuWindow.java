@@ -102,19 +102,15 @@ public class MenuWindow extends JMenuBar {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				System.out.println(selectedFile.getAbsolutePath());
-				State.setActiveState(new State(selectedFile.getAbsolutePath()));
+				File imageFile = fileChooser.getSelectedFile();
+				State activeState = State.getActiveState();
+				activeState.getThumbnail().getModel().setImagePath(imageFile.getAbsolutePath());
+				activeState.getPerspective1().getModel().setImagePath(imageFile.getAbsolutePath());
+				activeState.getPerspective2().getModel().setImagePath(imageFile.getAbsolutePath());
 			}
 			else{
 				System.out.println("No file selected");
 			}
-
-			File imageFile = fileChooser.getSelectedFile();
-			State activeState = State.getActiveState();
-			activeState.getThumbnail().getModel().setImagePath(imageFile.getAbsolutePath());
-			activeState.getPerspective1().getModel().setImagePath(imageFile.getAbsolutePath());
-			activeState.getPerspective2().getModel().setImagePath(imageFile.getAbsolutePath());
 		});
 
 		fileMenu.add(menuLoadStateFile);
