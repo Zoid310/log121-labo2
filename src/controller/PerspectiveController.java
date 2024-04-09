@@ -20,6 +20,10 @@ public class PerspectiveController implements Serializable {
         this.commandManager = CommandManager.getInstance();
     }
 
+    public PerspectiveController(java.awt.Image cImage) {
+        //TODO Auto-generated constructor stub
+    }
+
     public void handleZoomIn() {
         Command zoomIn = new ZoomCommand(1.1, model); 
         commandManager.executeCommand(zoomIn);
