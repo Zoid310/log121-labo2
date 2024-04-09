@@ -144,14 +144,5 @@ public class PerspectiveView extends JPanel implements Observer {
         g.fillRect(0, getHeight() - borderThickness, getWidth(), borderThickness);
         g.fillRect(0, 0, borderThickness, getHeight());
         g.fillRect(getWidth() - borderThickness, 0, borderThickness, getHeight());
-        // BufferedImage image = null;
-        // try {
-        // image = ImageIO.read(new File(model.getImagePath()));
-        // } catch (Exception e) {
-        // System.out.println(e.getMessage());
-        // }
-        // g.drawImage(image, model.getPosition()[0], model.getPosition()[1],
-        // this.getWidth() - borderThickness, (this.getHeight() / 3) - borderThickness,
-        // null);
     }
 }
