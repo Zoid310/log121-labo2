@@ -42,7 +42,7 @@ public class PerspectiveModel extends Subject implements Serializable{
 	}
 
 	public double getZoom() {
-		return zoom;
+		return zoom;	
 	}
 
 	public void setZoom(double zoom) {
@@ -55,3 +55,4 @@ public class PerspectiveModel extends Subject implements Serializable{
 	//#endregion
 	
 }
+	
