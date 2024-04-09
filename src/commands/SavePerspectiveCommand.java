@@ -10,7 +10,7 @@ public class SavePerspectiveCommand implements Command {
 	}
 
 	@Override
-	public void execute(PerspectiveView perspective) {
+	public void execute(PerspectiveModel perspective) {
 		
 	}
 	

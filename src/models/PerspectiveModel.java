@@ -37,6 +37,7 @@ public class PerspectiveModel extends Subject implements Serializable{
 
 	public void setPosition(int[] position) {
 		this.position = position;
+		this.notifyObservers();
 	}
 
 	public double getZoom() {
@@ -45,6 +46,7 @@ public class PerspectiveModel extends Subject implements Serializable{
 
 	public void setZoom(double zoom) {
 		this.zoom = zoom;
+		this.notifyObservers();
 	}
 	
 	//#endregion

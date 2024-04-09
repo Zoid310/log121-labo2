@@ -1,9 +1,9 @@
 package commands;
 
-import views.PerspectiveView;
+import models.PerspectiveModel;
 
 public interface Command {
 
-	public void execute(PerspectiveView perspective);
+	public void execute(PerspectiveModel perspective);
 	
 }
