@@ -15,8 +15,9 @@ public class ZoomCommand implements Command {
 
 	@Override
 	public void execute(PerspectiveView perspective) {
+
+		System.out.println("on est rentre dans excecute " );
 		double currentZoom = model.getZoom();
-		double newZoom = currentZoom * zoomAmount; 
-		model.setZoom(newZoom); 
+        model.setZoom(currentZoom * zoomAmount);
 	}
 }

@@ -63,9 +63,12 @@ public class PerspectiveView extends JPanel implements Observer {
     
     @Override
     public void update(Subject subject) {
-        // appelle quand modele notifie un changement
-        display(); 
+        
+        if (subject == model) {
+            display(); 
+        }
     }
+    
     
 
     public void display() {
