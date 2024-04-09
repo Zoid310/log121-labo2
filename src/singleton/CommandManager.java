@@ -21,7 +21,7 @@ public class CommandManager {
 	}
 	
 	public void executeCommand(Command c) {
-		
+		c.execute();
 	}
 	
 	public void newCommand(String type) {
