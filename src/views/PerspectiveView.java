@@ -70,8 +70,11 @@ public class PerspectiveView extends JPanel implements Observer {
 
         if (model.getImagePath() != null) {
             // afficher limage
-            JLabel label = new JLabel(new ImageIcon(model.getImagePath()));
-            add(label, BorderLayout.CENTER);
+            ImageIcon imageIcon = new ImageIcon(model.getImagePath());
+            java.awt.Image image = imageIcon.getImage();
+            ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500/3, ABORT));
+            imageLabel = new JLabel(newImageIcon);
+            add(imageLabel, BorderLayout.CENTER);
         } else {
 
             add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
