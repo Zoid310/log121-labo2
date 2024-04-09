@@ -56,6 +56,8 @@ public class PerspectiveController implements Serializable {
     }
 	
 	public void updatePerspective() {
+
+        view.display(); 
 		
 	}
 

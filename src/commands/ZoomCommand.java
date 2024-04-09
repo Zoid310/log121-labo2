@@ -13,9 +13,10 @@ public class ZoomCommand implements Command {
         this.model = model;
     }
 
-    @Override
-    public void execute(PerspectiveView perspective) {
-        double currentZoom = model.getZoom();
-        model.setZoom(currentZoom * zoomAmount);
-    }
+	@Override
+	public void execute(PerspectiveView perspective) {
+		double currentZoom = model.getZoom();
+		double newZoom = currentZoom * zoomAmount; 
+		model.setZoom(newZoom); 
+	}
 }

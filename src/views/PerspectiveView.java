@@ -37,14 +37,18 @@ public class PerspectiveView extends JPanel implements Observer {
         addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
+                System.out.println("Molette de la souris déplacée");
                 int notches = e.getWheelRotation();
                 if (notches < 0) {
-                    controller.handleZoomIn(); // Zoom avant
+                    System.out.println("Zoom avant");
+                    controller.handleZoomIn();
                 } else {
-                    controller.handleZoomOut(); // Zoom arrière
+                    System.out.println("Zoom arrière");
+                    controller.handleZoomOut();
                 }
             }
         });
+        
     }
 
     @Override
