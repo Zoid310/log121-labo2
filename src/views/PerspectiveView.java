@@ -4,7 +4,6 @@ import controller.PerspectiveController;
 import models.PerspectiveModel;
 import observer.Observer;
 import observer.Subject;
-import models.Image;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,14 +17,20 @@ public class PerspectiveView extends JPanel implements Observer {
     private static final long serialVersionUID = 1L;    
     private PerspectiveModel model;
     private PerspectiveController controller;
+    private JLabel imageLabel;
+
     
     public PerspectiveView(PerspectiveModel modelInstance) {
         super();
         this.model = modelInstance;
         this.controller = new PerspectiveController(this);
         this.model.add(this); // S'abonner aux mises a jour du modele
-        
+        ImageIcon imageIcon = new ImageIcon(model.getImagePath());
+        java.awt.Image image = imageIcon.getImage();
+        ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500/3, ABORT));
+        imageLabel = new JLabel(newImageIcon);
         setLayout(new BorderLayout());
+        add(imageLabel, BorderLayout.CENTER);
     }
     
     public void loadImage() {
@@ -75,12 +80,12 @@ public class PerspectiveView extends JPanel implements Observer {
         g.fillRect(0, getHeight() - borderThickness, getWidth(), borderThickness); 
         g.fillRect(0, 0, borderThickness, getHeight()); 
         g.fillRect(getWidth() - borderThickness, 0, borderThickness, getHeight());
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File(model.getImagePath()));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        g.drawImage(image, model.getPosition()[0], model.getPosition()[1], this.getWidth() - borderThickness, (this.getHeight() / 3) - borderThickness, null);
+        // BufferedImage image = null;
+        // try {
+        //     image = ImageIO.read(new File(model.getImagePath()));
+        // } catch (Exception e) {
+        //     System.out.println(e.getMessage());
+        // }
+        // g.drawImage(image, model.getPosition()[0], model.getPosition()[1], this.getWidth() - borderThickness, (this.getHeight() / 3) - borderThickness, null);
     }
 }

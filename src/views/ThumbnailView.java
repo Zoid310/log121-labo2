@@ -25,20 +25,16 @@ public class ThumbnailView extends JPanel implements Observer {
     public ThumbnailView(ThumbnailModel model) {
         this.model = model;
         this.model.add(this);
+        ImageIcon imageIcon = new ImageIcon(model.getImagePath());
+        Image image = imageIcon.getImage();
+        ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500/3, ABORT));
+        imageLabel = new JLabel(newImageIcon);
+        setLayout(new BorderLayout());
+        add(imageLabel, BorderLayout.CENTER);
     }
 
     public ThumbnailModel getModel() {
         return this.model;
-    }
-
-    public void loadImage(){
-        ImageIcon imageIcon  = new ImageIcon(model.getImagePath());
-        Image image = imageIcon.getImage();
-        Image newImage = image.getScaledInstance(this.getWidth(), this.getHeight() / 3, ABORT);
-        ImageIcon newImageIcon = new ImageIcon(newImage);
-        
-        imageLabel = new JLabel(newImageIcon);
-        add(imageLabel, BorderLayout.CENTER);
     }
 
     @Override
@@ -47,8 +43,11 @@ public class ThumbnailView extends JPanel implements Observer {
 
         if (model.getImagePath() != null) {
             // afficher limage
-            JLabel label = new JLabel(new ImageIcon(model.getImagePath()));
-            add(label, BorderLayout.CENTER);
+            ImageIcon imageIcon = new ImageIcon(model.getImagePath());
+            Image image = imageIcon.getImage();
+            ImageIcon newImageIcon = new ImageIcon(image.getScaledInstance((1000 / 3) - 12, 500/3, ABORT));
+            imageLabel = new JLabel(newImageIcon);
+            add(imageLabel, BorderLayout.CENTER);
         } else {
 
             add(new JLabel("Aucune perspective disponible"), BorderLayout.CENTER);
